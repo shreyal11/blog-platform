@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>My Blog Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>My Blog Platform 🚀</h1>
+
+    <h2>Add New Post</h2>
+
+    <form method="POST">
+
+        Title:<br>
+        <input type="text" name="title"><br><br>
+
+        Author:<br>
+        <input type="text" name="author"><br><br>
+
+        Category:<br>
+        <input type="text" name="category"><br><br>
+
+        Content:<br>
+        <textarea name="content"></textarea><br><br>
+
+        <button type="submit">Publish</button>
+
+    </form>
+
+    <hr>
+
+    <h2>All Posts</h2>
+
+    {% for post in posts %}
+    <p>{{ post }}</p>
+{% endfor %}
+
+</body>
+</html>
