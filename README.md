@@ -1,46 +1,68 @@
-🚀 Dockerized Blog Platform (3-Tier Application)
+# 🚀 Dockerized Blog Platform (3-Tier Application)
 
-A full-stack blog application built using Flask, MySQL, and Docker.
-This project demonstrates a complete 3-tier architecture with full CRUD functionality and containerized deployment.
+A full-stack blog application built using Flask, MySQL, and Docker.  
+This project demonstrates a complete **3-tier architecture** with CRUD functionality and containerized deployment using Docker Compose.
 
-🧠 Features
-📝 Create blog posts
-📖 View all posts
-✏️ Edit posts
-🗑️ Delete posts
-🐳 Fully containerized using Docker
-🔗 MySQL database integration
-⚡ Docker Compose for multi-container setup
-🏗️ Architecture
+---
+
+## 🧠 Features
+- 📝 Create blog posts  
+- 📖 View all posts  
+- ✏️ Edit posts  
+- 🗑️ Delete posts  
+- 🐳 Fully containerized using Docker  
+- 🔗 MySQL database integration  
+- ⚡ Multi-container setup using Docker Compose  
+
+---
+
+## 🏗 Architecture
+
+
 Frontend (HTML/CSS)
-        ↓
+↓
 Flask (Python Backend)
-        ↓
+↓
 MySQL Database
-⚙️ Tech Stack
-Python (Flask)
-MySQL
-HTML / CSS
-Docker
-Docker Compose
-Linux (Kali/Ubuntu)
-📂 Project Structure
+
+
+---
+
+## ⚙ Tech Stack
+- Python (Flask)
+- MySQL
+- HTML / CSS
+- Docker
+- Docker Compose
+- Linux (Kali / Ubuntu)
+
+---
+
+## 📂 Project Structure
+
+
 blog-platform/
 │
 ├── backend/
-│   ├── app.py
-│   ├── templates/
-│   ├── static/
-│   ├── Dockerfile
-│   └── requirements.txt
+│ ├── app.py
+│ ├── templates/
+│ ├── static/
+│ ├── Dockerfile
+│ └── requirements.txt
 │
 ├── database/
-│   └── init.sql
+│ └── init.sql
 │
 └── docker-compose.yml
-🚀 How to Run This Project
-1️⃣ Clone the repository
-git clone <your-repo-link>
+
+
+---
+
+## 🚀 How to Run This Project
+
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/shreyal11/blog-platform.git
 cd blog-platform
 2️⃣ Start the application
 docker-compose up --build -d
@@ -48,17 +70,15 @@ docker-compose up --build -d
 http://localhost:5000
 📌 What I Learned
 Docker containerization
+Multi-container orchestration using Docker Compose
 Flask backend development
-MySQL integration
-CRUD operations
-Linux command line
-Multi-container architecture using Docker Compose
+MySQL integration with applications
+Linux-based development workflow
+⭐ Future Improvements
+Add user authentication
+Deploy on AWS / EC2
+Add CI/CD pipeline using GitHub Actions
+Add UI framework (Bootstrap / React)
 👩‍💻 Author
 
-Shreya Lokhande
-
-⭐ Future Improvements
-Add Nginx reverse proxy
-Improve UI with Bootstrap
-Add authentication system (login/signup)
-Deploy on cloud (AWS / Render)
+Shreya Lokhande 
