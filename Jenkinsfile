@@ -9,10 +9,10 @@ pipeline {
             }
         }
 
-        stage('Restart Blog Platform') {
+        stage('Restart Existing Blog Containers') {
             steps {
-                sh 'docker compose down || true'
-                sh 'docker compose up --build -d'
+                sh 'docker stop blog-flask blog-mysql || true'
+                sh 'docker start blog-mysql blog-flask'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
 
     post {
         success {
-            echo 'Blog platform restarted successfully with Jenkins!'
+            echo 'Blog platform containers restarted successfully with Jenkins!'
         }
         failure {
             echo 'Pipeline failed. Check console output.'
