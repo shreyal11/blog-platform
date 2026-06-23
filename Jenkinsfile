@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
-            steps {
-                git 'https://github.com/shreyal11/blog-platform.git'
-            }
-        }
-
         stage('Build Docker Containers') {
             steps {
                 sh 'docker-compose up --build -d'
