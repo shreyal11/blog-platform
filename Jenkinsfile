@@ -4,40 +4,63 @@ pipeline {
     stages {
         stage("Code clone") {
             steps {
-                echo "this is cloning the code"
+                echo "Cloning the code"
                 git url: "https://github.com/shreyal11/blog-platform.git", branch: "main"
-                echo "code clone successfully"
+                echo "Code cloned successfully"
             }
         }
 
-        stage("build") {
+        stage("Build Docker Image") {
             steps {
-                echo "this is building the code"
+                echo "Building Docker image"
                 sh "docker build -t blog-flask:latest ./backend"
-                echo "successfully building"
+                echo "Docker image built successfully"
             }
         }
 
-        stage("push dockerhub") {
+        stage("Push to Docker Hub") {
             steps {
-                echo "This is pushing to Docker Hub"
+                echo "Pushing image to Docker Hub"
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhubcred',
                     passwordVariable: 'dockerhubPass',
                     usernameVariable: 'dockerhubUser'
                 )]) {
                     sh "echo ${dockerhubPass} | docker login -u ${dockerhubUser} --password-stdin"
-                    sh "docker image tag blog-flask:latest ${dockerhubUser}/blog-flask:latest"
+                    sh "docker tag blog-flask:latest ${dockerhubUser}/blog-flask:latest"
                     sh "docker push ${dockerhubUser}/blog-flask:latest"
                 }
             }
         }
 
-        stage("Deploy") {
+        stage("Remove Old Container") {
             steps {
-                echo "Deploying the code"
-                sh "docker compose up -d"
+                echo "Removing old blog container if it exists"
+                sh "docker rm -f blog-flask || true"
             }
+        }
+
+        stage("Run New Container") {
+            steps {
+                echo "Running new blog container"
+                sh "docker run -d --name blog-flask -p 5000:5000 blog-flask:latest"
+            }
+        }
+
+        stage("Check Running Containers") {
+            steps {
+                echo "Checking running containers"
+                sh "docker ps"
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline executed successfully!"
+        }
+        failure {
+            echo "Pipeline failed. Check console output."
         }
     }
 }
