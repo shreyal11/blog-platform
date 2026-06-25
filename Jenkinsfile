@@ -23,12 +23,14 @@ pipeline {
                 echo "Pushing image to Docker Hub"
                 withCredentials([usernamePassword(
                     credentialsId: 'dockerhubcred',
-                    passwordVariable: 'dockerhubPass',
-                    usernameVariable: 'dockerhubUser'
+                    usernameVariable: 'DOCKERHUB_USER',
+                    passwordVariable: 'DOCKERHUB_PASS'
                 )]) {
-                    sh "echo ${dockerhubPass} | docker login -u ${dockerhubUser} --password-stdin"
-                    sh "docker tag blog-flask:latest ${dockerhubUser}/blog-flask:latest"
-                    sh "docker push ${dockerhubUser}/blog-flask:latest"
+                    sh '''
+                        echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
+                        docker tag blog-flask:latest "$DOCKERHUB_USER"/blog-flask:latest
+                        docker push "$DOCKERHUB_USER"/blog-flask:latest
+                    '''
                 }
             }
         }
