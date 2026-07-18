@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-platform-deployment
+  labels:
+    app: blog-platform
+  namespace: blog-platform
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-platform
+  template:
+    metadata:
+      labels:
+        app: blog-platform
+    spec:
+      containers:
+      - name:  blog-platform
+        image: shreyal11/blog-platform:v1
+        ports:
+        - containerPort: 5000
+

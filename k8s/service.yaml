@@ -1,0 +1,14 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: blog-platform-service
+  namespace: blog-platform
+spec:
+  selector:
+    app: blog-platform
+  ports:
+  -  protocol: TCP
+     port: 5000
+     targetPort: 5000
+  type: ClusterIP
+
