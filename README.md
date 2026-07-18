@@ -1,84 +1,200 @@
-# 🚀 Dockerized Blog Platform (3-Tier Application)
+# 🚀 Kubernetes-Based Blog Platform (3-Tier Application)
 
-A full-stack blog application built using Flask, MySQL, and Docker.  
-This project demonstrates a complete **3-tier architecture** with CRUD functionality and containerized deployment using Docker Compose.
+A full-stack blog application built using **Flask, MySQL, Docker, and Kubernetes**.
+
+This project demonstrates a complete **3-tier architecture** with CRUD functionality, containerization using Docker, and deployment on Kubernetes with persistent storage.
 
 ---
 
 ## 🧠 Features
-- 📝 Create blog posts  
-- 📖 View all posts  
-- ✏️ Edit posts  
-- 🗑️ Delete posts  
-- 🐳 Fully containerized using Docker  
-- 🔗 MySQL database integration  
-- ⚡ Multi-container setup using Docker Compose  
+
+- 📝 Create blog posts
+- 📖 View all posts
+- ✏️ Edit posts
+- 🗑️ Delete posts
+- 🐳 Fully containerized using Docker
+- ☸️ Deployed on Kubernetes
+- 🌐 Kubernetes Service for networking
+- 🔐 ConfigMap for database initialization
+- 🔑 Secret for secure database credentials
+- 💾 Persistent Volume (PV)
+- 📦 Persistent Volume Claim (PVC)
+- ♻️ Kubernetes Self-Healing
+- ⚡ Multi-container architecture
 
 ---
 
 ## 🏗 Architecture
 
-
-Frontend (HTML/CSS)
-↓
-Flask (Python Backend)
-↓
-MySQL Database
-
+```
+Browser
+    │
+    ▼
+Kubernetes Service
+    │
+    ▼
+Flask Deployment
+    │
+    ▼
+MySQL Service
+    │
+    ▼
+MySQL Deployment
+    │
+    ▼
+Persistent Volume Claim (PVC)
+    │
+    ▼
+Persistent Volume (PV)
+```
 
 ---
 
 ## ⚙ Tech Stack
+
 - Python (Flask)
 - MySQL
 - HTML / CSS
 - Docker
 - Docker Compose
-- Linux (Kali / Ubuntu)
+- Kubernetes
+- Linux (Kali Linux)
+- Git
+- GitHub
 
 ---
 
 ## 📂 Project Structure
 
-
+```
 blog-platform/
 │
 ├── backend/
-│ ├── app.py
-│ ├── templates/
-│ ├── static/
-│ ├── Dockerfile
-│ └── requirements.txt
+│   ├── app.py
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   ├── templates/
+│   └── static/
 │
 ├── database/
-│ └── init.sql
+│   └── init.sql
 │
-└── docker-compose.yml
-
+├── k8s/
+│   ├── namespace.yaml
+│   ├── deployment.yaml
+│   ├── service.yaml
+│   ├── mysql-deployment.yaml
+│   ├── mysql-service.yaml
+│   ├── configmap.yaml
+│   ├── secret.yaml
+│   ├── pv.yaml
+│   └── pvc.yaml
+│
+├── docker-compose.yml
+│
+└── README.md
+```
 
 ---
 
-## 🚀 How to Run This Project
+## 🚀 Run Using Docker
 
-### 1️⃣ Clone the repository
+### Clone the repository
+
 ```bash
 git clone https://github.com/shreyal11/blog-platform.git
-cd blog-platform
-2️⃣ Start the application
-docker-compose up --build -d
-3️⃣ Open in browser
-http://localhost:5000
-📌 What I Learned
-Docker containerization
-Multi-container orchestration using Docker Compose
-Flask backend development
-MySQL integration with applications
-Linux-based development workflow
-⭐ Future Improvements
-Add user authentication
-Deploy on AWS / EC2
-Add CI/CD pipeline using GitHub Actions
-Add UI framework (Bootstrap / React)
-👩‍💻 Author
 
-Shreya Lokhande 
+cd blog-platform
+```
+
+### Start the application
+
+```bash
+docker-compose up --build -d
+```
+
+### Open in browser
+
+```
+http://localhost:5000
+```
+
+---
+
+## ☸️ Run Using Kubernetes
+
+### Create Namespace
+
+```bash
+kubectl apply -f k8s/namespace.yaml
+```
+
+### Deploy all Kubernetes resources
+
+```bash
+kubectl apply -f k8s/
+```
+
+### Verify deployment
+
+```bash
+kubectl get all -n blog-platform
+```
+
+### Access the application
+
+```bash
+kubectl port-forward service/blog-platform-service -n blog-platform 5000:5000
+```
+
+Open in browser:
+
+```
+http://localhost:5000
+```
+
+---
+
+## ☸ Kubernetes Resources Used
+
+- Namespace
+- Deployment
+- Service
+- ConfigMap
+- Secret
+- Persistent Volume (PV)
+- Persistent Volume Claim (PVC)
+
+---
+
+## 📌 What I Learned
+
+- Docker containerization
+- Multi-container applications using Docker Compose
+- Deploying applications on Kubernetes
+- Kubernetes Deployments
+- Kubernetes Services
+- Namespaces
+- ConfigMaps
+- Secrets
+- Persistent Volumes (PV)
+- Persistent Volume Claims (PVC)
+- Self-Healing in Kubernetes
+- Flask and MySQL integration
+- Linux-based development workflow
+
+---
+
+## ⭐ Future Improvements
+
+- Ingress Controller
+- Horizontal Pod Autoscaler (HPA)
+- CI/CD using Jenkins
+- Monitoring with Prometheus & Grafana
+- Deploy on AWS EKS
+
+---
+
+## 👩‍💻 Author
+
+**Shreya Lokhande**
