@@ -1,56 +1,50 @@
-# 🚀 Kubernetes-Based Blog Platform (3-Tier Application)
+# 🚀 Kubernetes Blog Platform (3-Tier Application)
 
-A full-stack blog application built using **Flask, MySQL, Docker, and Kubernetes**.
+A production-style **3-tier Blog Platform** built using **Flask**, **MySQL**, **Docker**, and **Kubernetes**.
 
-This project demonstrates a complete **3-tier architecture** with CRUD functionality, containerization using Docker, and deployment on Kubernetes with persistent storage.
-
----
-
-## 🧠 Features
-
-- 📝 Create blog posts
-- 📖 View all posts
-- ✏️ Edit posts
-- 🗑️ Delete posts
-- 🐳 Fully containerized using Docker
-- ☸️ Deployed on Kubernetes
-- 🌐 Kubernetes Service for networking
-- 🔐 ConfigMap for database initialization
-- 🔑 Secret for secure database credentials
-- 💾 Persistent Volume (PV)
-- 📦 Persistent Volume Claim (PVC)
-- ♻️ Kubernetes Self-Healing
-- ⚡ Multi-container architecture
+This project demonstrates how a Dockerized application can be deployed on Kubernetes using Deployments, Services, ConfigMaps, Secrets, Persistent Volumes, Health Probes, Ingress, and Horizontal Pod Autoscaler (HPA).
 
 ---
 
-## 🏗 Architecture
+## 🏗️ Architecture
 
 ```
 Browser
-    │
-    ▼
+   │
+   ▼
 Kubernetes Service
-    │
-    ▼
-Flask Deployment
-    │
-    ▼
-MySQL Service
-    │
-    ▼
-MySQL Deployment
-    │
-    ▼
-Persistent Volume Claim (PVC)
-    │
-    ▼
+   │
+   ▼
+Flask Application (Deployment)
+   │
+   ▼
+MySQL Database (Deployment)
+   │
+   ▼
 Persistent Volume (PV)
 ```
 
 ---
 
-## ⚙ Tech Stack
+## ✨ Features
+
+- 📝 Create Blog Posts
+- 📖 View Blog Posts
+- ✏️ Edit Blog Posts
+- 🗑️ Delete Blog Posts
+- 🐳 Dockerized Application
+- ☸️ Kubernetes Deployment
+- 💾 Persistent MySQL Storage
+- 🔐 Secrets Management
+- ⚙️ ConfigMaps
+- ❤️ Liveness & Readiness Probes
+- 📈 Horizontal Pod Autoscaler (HPA)
+- 🌐 Ingress Configuration
+- 📊 Metrics Server Integration
+
+---
+
+## 🛠️ Tech Stack
 
 - Python (Flask)
 - MySQL
@@ -59,8 +53,25 @@ Persistent Volume (PV)
 - Docker Compose
 - Kubernetes
 - Linux (Kali Linux)
-- Git
-- GitHub
+- Git & GitHub
+
+---
+
+## ☸️ Kubernetes Resources Used
+
+- Namespace
+- Deployment
+- Service
+- ConfigMap
+- Secret
+- Persistent Volume (PV)
+- Persistent Volume Claim (PVC)
+- Liveness Probe
+- Readiness Probe
+- Resource Requests & Limits
+- Metrics Server
+- Horizontal Pod Autoscaler (HPA)
+- Ingress
 
 ---
 
@@ -72,9 +83,7 @@ blog-platform/
 ├── backend/
 │   ├── app.py
 │   ├── Dockerfile
-│   ├── requirements.txt
-│   ├── templates/
-│   └── static/
+│   └── requirements.txt
 │
 ├── database/
 │   └── init.sql
@@ -88,32 +97,33 @@ blog-platform/
 │   ├── configmap.yaml
 │   ├── secret.yaml
 │   ├── pv.yaml
-│   └── pvc.yaml
+│   ├── pvc.yaml
+│   ├── ingress.yaml
+│   └── hpa.yaml
 │
 ├── docker-compose.yml
-│
+├── Jenkinsfile
 └── README.md
 ```
 
 ---
 
-## 🚀 Run Using Docker
+## 🚀 Run with Docker
 
-### Clone the repository
+Clone the repository:
 
 ```bash
 git clone https://github.com/shreyal11/blog-platform.git
-
 cd blog-platform
 ```
 
-### Start the application
+Start the application:
 
 ```bash
 docker-compose up --build -d
 ```
 
-### Open in browser
+Open in your browser:
 
 ```
 http://localhost:5000
@@ -121,33 +131,33 @@ http://localhost:5000
 
 ---
 
-## ☸️ Run Using Kubernetes
+## ☸️ Deploy on Kubernetes
 
-### Create Namespace
+Create the namespace:
 
 ```bash
 kubectl apply -f k8s/namespace.yaml
 ```
 
-### Deploy all Kubernetes resources
+Deploy all Kubernetes resources:
 
 ```bash
 kubectl apply -f k8s/
 ```
 
-### Verify deployment
+Verify resources:
 
 ```bash
 kubectl get all -n blog-platform
 ```
 
-### Access the application
+Port forward the application:
 
 ```bash
-kubectl port-forward service/blog-platform-service -n blog-platform 5000:5000
+kubectl port-forward service/blog-platform-service 5000:5000 -n blog-platform
 ```
 
-Open in browser:
+Open:
 
 ```
 http://localhost:5000
@@ -155,41 +165,50 @@ http://localhost:5000
 
 ---
 
-## ☸ Kubernetes Resources Used
+## 📈 Horizontal Pod Autoscaler
 
-- Namespace
-- Deployment
-- Service
-- ConfigMap
-- Secret
+The application automatically scales based on CPU utilization.
+
+- Minimum Replicas: **1**
+- Maximum Replicas: **5**
+- Target CPU Utilization: **50%**
+
+During testing, the application successfully scaled from **1 Pod to 5 Pods** under CPU load.
+
+---
+
+## 💾 Persistent Storage
+
+The MySQL database uses:
+
 - Persistent Volume (PV)
 - Persistent Volume Claim (PVC)
 
+This ensures data remains available even if the MySQL Pod is recreated.
+
 ---
 
-## 📌 What I Learned
+## 📚 What I Learned
 
-- Docker containerization
-- Multi-container applications using Docker Compose
-- Deploying applications on Kubernetes
+- Docker Containerization
 - Kubernetes Deployments
-- Kubernetes Services
-- Namespaces
-- ConfigMaps
-- Secrets
-- Persistent Volumes (PV)
-- Persistent Volume Claims (PVC)
-- Self-Healing in Kubernetes
-- Flask and MySQL integration
-- Linux-based development workflow
+- Kubernetes Networking
+- ConfigMaps & Secrets
+- Persistent Storage (PV/PVC)
+- Health Checks
+- Resource Management
+- Metrics Server
+- Horizontal Pod Autoscaling
+- Ingress
+- Linux & Kubernetes CLI
 
 ---
 
-## ⭐ Future Improvements
+## 🚀 Future Improvements
 
-- Ingress Controller
-- Horizontal Pod Autoscaler (HPA)
-- CI/CD using Jenkins
+- Role-Based Access Control (RBAC)
+- Helm Charts
+- CI/CD with GitHub Actions or Jenkins
 - Monitoring with Prometheus & Grafana
 - Deploy on AWS EKS
 
@@ -198,3 +217,5 @@ http://localhost:5000
 ## 👩‍💻 Author
 
 **Shreya Lokhande**
+
+GitHub: https://github.com/shreyal11
